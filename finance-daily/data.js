@@ -8,7 +8,7 @@ window.FINSIGHT_DATA = {
     { id:"ssec", publisher:"Investing.com", title:"上证指数历史行情", url:"https://www.investing.com/indices/shanghai-composite-historical-data", kind:"市场行情" },
     { id:"bond", publisher:"Investing.com", title:"中国10年期国债收益率历史行情", url:"https://cn.investing.com/rates-bonds/china-10-year-bond-yield-historical-data", kind:"市场行情" },
     { id:"gold", publisher:"Investing.com", title:"现货黄金 XAU/USD 历史行情", url:"https://ca.investing.com/currencies/xau-usd-historical-data", kind:"市场行情" },
-    { id:"fx", publisher:"CFETS / FXStreet", title:"2026年10月30日人民币对美元中间价", url:"https://www.fxstreet.com/news/pboc-sets-usd-cny-reference-rate-at-67138-vs-67147-previous-202610300115", kind:"汇率参考" }
+    { id:"fx", publisher:"新华财经（转引中国外汇交易中心）", title:"2026年10月30日人民币对美元中间价", url:"https://www.cnfin.com/kx/detail/20261030/4488624_1.html", kind:"汇率参考" }
   ],
   markets: [
     { id:"fed", name:"美国联邦基金利率目标区间", value:"3.75%–4.00%", change:"10月28日维持不变", direction:"flat", date:"美联储 · 10月28日", unit:"目标区间", points:[], note:"美联储以10比2投票维持利率不变；两名委员主张加息25个基点。", source:"fed" },
