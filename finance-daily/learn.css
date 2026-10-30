@@ -275,3 +275,74 @@ p { line-height: 1.75; }
   .map-hero h1 { font-size: 21px; }
   .map-detail-head h2 { font-size: 22px; }
 }
+
+
+/* FinSight v1.2 — rounder Chinese typography and larger educational explanations
+   Local fonts only: Apple Yuanti SC (if activated), Windows YouYuan, then system fallback. */
+:root {
+  --font-sans: "Yuanti SC", "YouYuan", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  --type-body: 16px;
+  --type-caption: 14px;
+  --type-section: 22px;
+  --type-card-title: 18px;
+}
+html, body { font-family: var(--font-sans); }
+body { font-size: 16px; line-height: 1.8; font-weight: 400; letter-spacing: .005em; }
+button, input, select, textarea { font-family: inherit; }
+.brand-logo { font-weight: 750; letter-spacing: -.02em; }
+.hero h1, .map-hero h1 { font-weight: 750; letter-spacing: -.014em; }
+.section-title, .lesson-title, .lesson-head h1, .map-detail-head h2 {
+  font-weight: 750;
+  letter-spacing: -.01em;
+}
+.news h3, .lab-title, .map-explain h3 { font-weight: 700; letter-spacing: 0; }
+.news p, .lesson-body, .lesson-head .summary { font-size: 16px; line-height: 1.85; }
+.market-card .market-note {
+  font-size: 15.5px;
+  line-height: 1.85;
+  font-weight: 400;
+  color: var(--ink);
+  margin-top: 16px;
+  padding-top: 13px;
+  letter-spacing: .005em;
+}
+.market-card .market-note b {
+  font-size: 15.5px;
+  font-weight: 750;
+  color: var(--brand);
+}
+.market-name { font-size: 14.5px; font-weight: 700; }
+.market-time, .smallsource { font-size: 13px; line-height: 1.65; }
+.market-move { font-size: 14px; }
+.market-card { padding: 20px; }
+.market-number { font-weight: 750; }
+.section-sub { font-size: 14px; line-height: 1.8; }
+.defbox p, .lifebox p, .keybox p, .map-explain p { font-size: 15.5px; line-height: 1.85; }
+.map-path-card small, .map-detail-summary { font-size: 14px; line-height: 1.75; }
+.map-node-copy small, .route-node small { font-size: 12.5px; line-height: 1.65; }
+.map-quick-check h3 { font-size: 16px; }
+@media (max-width: 760px) {
+  :root { --type-body: 16px; --type-section: 21px; --type-card-title: 18px; }
+  body { font-size: 16px; line-height: 1.8; }
+  .market-grid { grid-template-columns: 1fr; gap: 12px; }
+  .market-card { padding: 19px 20px; }
+  .market-card .market-note, .market-card .market-note b { font-size: 16px; }
+  .market-card .market-note { line-height: 1.85; }
+  .market-name { font-size: 15px; }
+  .market-time, .smallsource { font-size: 13.5px; }
+  .market-number { font-size: 24px; }
+  .market-move { font-size: 14px; }
+  .news h3 { font-size: 18px; }
+  .news p, .lesson-body, .lesson-head .summary { font-size: 16px; line-height: 1.85; }
+  .lesson-title { font-size: 19px; }
+  .defbox p, .lifebox p, .keybox p, .map-explain p { font-size: 16px; }
+  .map-hero p, .hero p { font-size: 14.5px; }
+  .section-sub { font-size: 14px; }
+}
+@media (max-width: 440px) {
+  .market-card { padding: 18px; }
+  .market-number { font-size: 23px; }
+  .market-card .market-note, .market-card .market-note b { font-size: 16px; }
+  .news h3 { font-size: 17.5px; }
+  .map-explain p { font-size: 16px; }
+}
