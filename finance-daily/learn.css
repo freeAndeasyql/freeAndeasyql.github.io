@@ -346,3 +346,25 @@ button, input, select, textarea { font-family: inherit; }
   .news h3 { font-size: 17.5px; }
   .map-explain p { font-size: 16px; }
 }
+
+
+/* Highlight verified financial figures in teaching text — not market up/down color coding. */
+.finance-figure {
+  display: inline;
+  color: #C83F3F;
+  background: #FFF0EF;
+  border-radius: 5px;
+  padding: 0 .16em;
+  font-weight: 850;
+  font-variant-numeric: tabular-nums;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  white-space: normal;
+}
+.lesson-body .finance-figure, .news p .finance-figure, .lesson-head .summary .finance-figure {
+  font-size: 1.06em;
+}
+.keybox .finance-figure, .lifebox .finance-figure, .defbox .finance-figure {
+  color: #BA3636;
+  background: rgba(214,69,69,.10);
+}
