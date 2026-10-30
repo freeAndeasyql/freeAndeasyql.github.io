@@ -9,7 +9,7 @@ const add=(s,n)=>{let d=new Date(s+"T12:00:00Z");d.setUTCDate(d.getUTCDate()+n);
 let today=date(),saved={};
 try{saved=JSON.parse(localStorage.getItem("finsight.learn.v1")||"{}")}catch(e){}
 if(!saved||typeof saved!=="object")saved={};
-saved.completed||={};saved.bookmark||={};saved.reviews||={};saved.quizAttempts||=[];saved.analystAnswers||=[];
+saved.completed||={};saved.bookmark||={};saved.reviews||={};saved.quizAttempts||=[];saved.analystAnswers||=[];saved.mapMastery||={};saved.mapAnswers||={};
 const persist=()=>{try{localStorage.setItem("finsight.learn.v1",JSON.stringify(saved))}catch(e){}};
 const lesson=id=>D.lessons.find(x=>x.id===id);
 const src=id=>D.sources.find(x=>x.id===id);
@@ -20,7 +20,7 @@ const rich=x=>String(x??"").split(pattern).map(s=>D.glossary[s]?'<button class="
 const box=(txt,cls="")=>'<div class="card '+cls+'">'+txt+'</div>';
 const head=(h,s="")=>'<div class="section-head"><h2 class="section-title">'+h+'</h2><p class="section-sub">'+s+'</p></div>';
 const money=x=>"¥"+Math.round(x).toLocaleString("zh-CN");
-let page="home",current="fed",quizIndex=0,answers=[],locked=false,filter="due",analystLocked=false,toastTimer;
+let page="home",current="fed",quizIndex=0,answers=[],locked=false,filter="due",analystLocked=false,toastTimer,selectedNode="policy-rate",selectedPath="fed-gold",mapFilter="all",mapSearch="";
 const completed=()=>D.lessons.slice(0,3).filter(l=>saved.completed[l.id]).length;
 function streak(){let ds=new Set(Object.values(saved.completed));let d=ds.has(today)?today:add(today,-1),n=0;while(ds.has(d)&&n<1000){n++;d=add(d,-1)}return n}
 const due=()=>Object.keys(saved.reviews).filter(t=>saved.reviews[t]?.due<=today);
@@ -37,7 +37,7 @@ function home(){
  let ring='<div class="ring"><svg viewBox="0 0 122 122" width="100%" height="100%" aria-hidden="true"><circle cx="61" cy="61" r="47" fill="none" stroke="#f0d3c3" stroke-width="12"/><circle cx="61" cy="61" r="47" fill="none" stroke="#E8632C" stroke-width="12" stroke-linecap="round" stroke-dasharray="'+(295.31*pc/100)+' 295.31"/></svg><div class="ring-center"><strong>'+pc+'%</strong><span>今日进度</span></div></div>';
  let market=(D.marketSnapshot||D.markets).map(m=>'<div class="market-card"><div class="market-name">'+esc(m.name)+'</div><div class="market-number num '+(m.direction==="up"?"rise":m.direction==="down"?"fall":"flat")+'">'+esc(m.value)+'</div><div class="row between"><span class="market-move '+(m.direction==="up"?"rise":m.direction==="down"?"fall":"flat")+'">'+(m.direction==="up"?"▲":m.direction==="down"?"▼":"●")+' '+esc(m.change)+'</span>'+spark(m.points,m.direction)+'</div><div class="market-time">'+esc(m.date)+' · '+esc(m.unit)+'</div><div class="market-note"><b>📖 和你有关：</b>'+esc(m.note)+'</div><span class="smallsource">'+link(m.source)+'</span></div>').join("");
  let news=D.lessons.map(l=>'<article class="news card"><span class="news-num">'+l.number+'</span><div><div class="row wrap"><span class="chip easy">'+esc(l.level)+'</span><span class="chip topic">'+esc(l.category)+'</span><span class="chip">'+l.minutes+'分钟</span>'+(saved.completed[l.id]?'<span class="chip easy">✓ 已学</span>':"")+'</div><h3>'+esc(l.title)+'</h3><p>'+esc(l.summary)+'</p><span class="tiny muted">将学到：'+esc(l.terms.join(" · "))+'</span></div><button class="news-go" data-action="lesson" data-id="'+l.id+'" aria-label="学习第'+l.number+'课">→</button></article>').join("");
- return '<section class="hero section"><div><div class="hero-small">☀️ '+esc(D.edition.label)+' · '+esc(D.edition.readingTime)+'</div><h1>今天，学懂一点金融新闻。</h1><p>先从生活中的问题出发，再慢慢理解市场。每天10分钟，不要求一口气学完。</p><button class="btn" data-action="lesson" data-id="'+(D.lessons.find(x=>!saved.completed[x.id])||D.lessons[0]).id+'">开始今天的学习 →</button></div>'+ring+'</section><section class="section">'+head("📊 今日宏观数据","这里展示可核实的官方宏观指标，不把延迟行情误标成实时价格。每张卡片都注明统计口径和发布日期。")+'<div class="market-grid">'+market+'</div><p class="small muted">数据参考期：'+esc(D.edition.label)+'。这里是宏观统计数据，不是实时市场报价；各指标的统计期和发布日期标在卡片内。涨红跌绿遵循中国市场惯例。</p></section><section class="section">'+head("📰 今天的新闻课","从容易到稍难。学完一课再做题，比一次阅读很多资讯更有效。")+'<div class="news-grid">'+news+'</div></section><section class="section">'+box('<h2 class="section-title">🌱 学一点，再练一下</h2><p class="section-sub">把每条新闻当成一节小课，而不是需要背下来的市场术语。</p><p><span class="chip brand">今日已完成 '+n+'/3 课</span> <span class="chip">今天到期复习 '+due().length+' 张</span></p><button class="btn ghost" data-page="quiz">去做每日三题 →</button>')+'</section>';
+ return '<section class="hero section"><div><div class="hero-small">☀️ '+esc(D.edition.label)+' · '+esc(D.edition.readingTime)+'</div><h1>今天，学懂一点金融新闻。</h1><p>先从生活中的问题出发，再慢慢理解市场。每天10分钟，不要求一口气学完。</p><button class="btn" data-action="lesson" data-id="'+(D.lessons.find(x=>!saved.completed[x.id])||D.lessons[0]).id+'">开始今天的学习 →</button><button class="btn ghost small" data-page="map">🧭 探索金融知识地图</button></div>'+ring+'</section><section class="section">'+head("📊 今日宏观数据","这里展示可核实的官方宏观指标，不把延迟行情误标成实时价格。每张卡片都注明统计口径和发布日期。")+'<div class="market-grid">'+market+'</div><p class="small muted">数据参考期：'+esc(D.edition.label)+'。这里是宏观统计数据，不是实时市场报价；各指标的统计期和发布日期标在卡片内。涨红跌绿遵循中国市场惯例。</p></section><section class="section">'+head("📰 今天的新闻课","从容易到稍难。学完一课再做题，比一次阅读很多资讯更有效。")+'<div class="news-grid">'+news+'</div></section><section class="section">'+box('<h2 class="section-title">🌱 学一点，再练一下</h2><p class="section-sub">把每条新闻当成一节小课，而不是需要背下来的市场术语。</p><p><span class="chip brand">今日已完成 '+n+'/3 课</span> <span class="chip">今天到期复习 '+due().length+' 张</span></p><button class="btn ghost" data-page="quiz">去做每日三题 →</button>')+'</section>';
 }
 function lessonPage(){
  let l=lesson(current),isDone=!!saved.completed[l.id],steps=["发生了什么","这是什么意思","生活中的例子","影响市场","记住什么"];
@@ -48,7 +48,29 @@ function lessonPage(){
  let chain=box('<h2 class="lesson-title">🔍 第四：为什么会影响金融市场？</h2><p class="small muted">每一步都解释原因，不直接跳到“利好或利空”。</p><div class="chain">'+l.chain.map((x,i)=>'<div class="chain-node">'+rich(x.title)+'<div class="tiny muted">'+rich(x.detail)+'</div></div>'+(i<l.chain.length-1?'<span class="chain-arrow">→</span>':"")).join("")+'</div><h3 style="margin:20px 0 8px;font-size:16px">对不同资产有什么影响？</h3><div class="reason-cards">'+l.assetNotes.map(x=>'<div class="reason-card"><h4>'+esc(x.name)+' <span class="chip">'+esc(x.direction)+'</span></h4><p>'+rich(x.why)+'</p></div>').join("")+'</div><p class="risk">⚠️ '+esc(l.caution)+' 传导链不代表必然结果。</p>',"lesson-block");
  let last=box('<h2 class="lesson-title">⭐ 第五：今天记住什么？</h2><div class="keybox">'+l.remember.map(x=>'<p>✓ '+rich(x)+'</p>').join("")+'</div><div class="task-btns"><button class="btn ghost" data-action="bookmark" data-id="'+l.id+'">'+(saved.bookmark[l.id]?"♥ 已收藏知识卡":"♡ 收藏本课知识卡")+'</button><button class="btn" data-action="finish" data-id="'+l.id+'">'+(isDone?"✓ 已学完 · 去做题":"学完了，去做每日三题 →")+'</button></div>',"lesson-block");
  let analysis=box('<h2 class="lesson-title">🧠 你来当小小分析师</h2><p>'+esc(l.analyst.question)+'</p><div id="analystChoices">'+l.analyst.options.map((x,i)=>'<button class="option-btn" data-action="analyst" data-id="'+l.id+'" data-choice="'+i+'">'+String.fromCharCode(65+i)+'. '+esc(x)+'</button>').join("")+'</div><div id="analystFeedback"></div><p class="small muted">先自己想，再看原因；答错也没关系。</p>',"analyst");
- return '<section class="section"><div class="row between wrap" style="margin-bottom:16px"><button class="btn ghost small" data-page="home">← 今日学习</button><span class="chip easy">第'+l.number+'课 · '+esc(l.level)+' · '+l.minutes+'分钟</span></div><div class="lesson-head">'+stepBar+'<h1>'+esc(l.title)+'</h1><p class="summary">'+esc(l.summary)+'</p></div><div class="teaching-steps">'+[fact,defs,life,chain,last].map((x,i)=>'<div id="lesson-step-'+i+'">'+x+'</div>').join("")+analysis+'</div></section>';
+ return '<section class="section"><div class="row between wrap" style="margin-bottom:16px"><button class="btn ghost small" data-page="home">← 今日学习</button><span class="chip easy">第'+l.number+'课 · '+esc(l.level)+' · '+l.minutes+'分钟</span></div><div class="lesson-head">'+stepBar+'<h1>'+esc(l.title)+'</h1><p class="summary">'+esc(l.summary)+'</p></div><div class="teaching-steps">'+[fact,defs,life,chain,last].map((x,i)=>'<div id="lesson-step-'+i+'">'+x+'</div>').join("")+analysis+'<div class="map-related-cta"><div><b>🧭 想知道这些知识点还和什么有关？</b><p class="small muted">把这节新闻课放回完整的金融知识网络中理解。</p></div><button class="btn ghost small" data-action="lesson-map" data-id="'+l.id+'">在知识地图中探索相关概念 →</button></div></div></section>';
+}
+function mapPage(){
+ const M=D.knowledgeMap;
+ if(!M)return '<section class="section"><p>知识地图数据尚未加载。</p></section>';
+ const byId=id=>M.nodes.find(n=>n.id===id);
+ const node=byId(selectedNode)||M.nodes[0];
+ const path=M.paths.find(p=>p.id===selectedPath)||M.paths[0];
+ const mastered=Object.keys(saved.mapMastery).filter(id=>saved.mapMastery[id]&&byId(id)).length;
+ const filters=[{id:"all",label:"全部知识"}].concat(M.groups.map(g=>({id:g.id,label:g.title.slice(5)})));
+ const route=path.nodes.map((id,i)=>{
+   const n=byId(id);
+   let html='<div class="route-step"><button class="route-node '+(selectedNode===id?'selected':'')+'" data-action="map-node" data-node="'+id+'"><span class="route-index">0'+(i+1)+'</span><b>'+esc(n.name)+'</b><small>'+esc(n.summary.slice(0,34))+'…</small></button></div>';
+   if(i<path.edges.length)html+='<div class="route-edge"><span>→</span><b>'+esc(path.edges[i].label)+'</b><small>'+esc(path.edges[i].detail)+'</small></div>';
+   return html;
+ }).join("");
+ const groupCards=M.groups.filter(g=>mapFilter==="all"||mapFilter===g.id).map(g=>{
+   const nodes=g.nodes.map(id=>byId(id)).filter(Boolean);
+   return '<section class="map-group '+g.tone+'" data-map-group="'+g.id+'"><div class="map-group-head"><span>'+esc(g.title)+'</span><small>'+esc(g.subtitle)+'</small></div><div class="map-node-list">'+nodes.map(n=>'<button class="map-node-card '+(selectedNode===n.id?'active':'')+'" data-action="map-node" data-node="'+n.id+'" data-map-node data-map-name="'+esc(n.name.toLowerCase())+'"><span class="map-node-dot"></span><span class="map-node-copy"><b>'+esc(n.name)+'</b><small>'+esc(n.summary.slice(0,45))+'…</small></span><span class="map-node-mark">'+(saved.mapMastery[n.id]?'✓':'›')+'</span></button>').join("")+'</div></section>';
+ }).join("");
+ const chosen=saved.mapAnswers[node.id],check=node.check;
+ const detail='<section class="map-detail card" id="map-detail"><div class="map-detail-head"><div><span class="chip topic">'+esc(node.level)+' · '+esc(M.groups.find(g=>g.id===node.group)?.title.slice(5)||"金融知识")+'</span><h2>'+esc(node.name)+'</h2><p class="map-detail-summary">'+esc(node.summary)+'</p></div><button class="btn '+(saved.mapMastery[node.id]?'':'ghost')+' small" data-action="map-master" data-node="'+node.id+'">'+(saved.mapMastery[node.id]?'✓ 已理解':'标记为已理解')+'</button></div><div class="map-detail-grid"><article class="map-explain"><span class="map-eyebrow">01 · 先用生活理解</span><h3>🏠 生活中的例子</h3><p>'+esc(node.analogy)+'</p></article><article class="map-explain"><span class="map-eyebrow">02 · 再看金融机制</span><h3>⚙️ 它如何发挥作用</h3><p>'+esc(node.mechanism)+'</p></article><article class="map-explain"><span class="map-eyebrow">03 · 和投资有什么关系</span><h3>📈 投资分析怎么用</h3><p>'+esc(node.investor)+'</p></article><article class="map-explain advanced"><span class="map-eyebrow">04 · 下一步深入</span><h3>🔎 进阶学习方向</h3><p>'+esc(node.advanced)+'</p></article></div><div class="map-related"><b>🔗 相关知识点</b><div class="row wrap">'+node.related.map(id=>{const n=byId(id);return n?'<button class="map-related-chip" data-action="map-node" data-node="'+id+'">'+esc(n.name)+' ↗</button>':""}).join("")+'</div></div><div class="map-quick-check"><div><span class="map-eyebrow">学完自测</span><h3>🧠 '+esc(check.q)+'</h3></div><div class="map-check-options">'+check.options.map((x,i)=>'<button class="option-btn '+(chosen!==undefined?(i===check.answer?'right':i===chosen?'wrong':''):'')+'" data-action="map-check" data-choice="'+i+'" data-node="'+node.id+'" '+(chosen!==undefined?'disabled':'')+'>'+String.fromCharCode(65+i)+'. '+esc(x)+'</button>').join("")+'</div>'+(chosen!==undefined?'<div class="answer-why">💡 '+esc(check.why)+'</div><button class="btn ghost small" data-action="map-reset" data-node="'+node.id+'">再试一次</button>':"")+'</div>'+(node.lesson?'<div class="map-course-link"><span>📰 想结合真实新闻继续学习？</span><button class="btn small" data-action="lesson" data-id="'+node.lesson+'">打开关联课程 →</button></div>':"")+'</section>';
+ return '<section class="section knowledge-map-page"><div class="map-hero"><div><span class="map-kicker">FINSIGHT · KNOWLEDGE GRAPH</span><h1>'+esc(M.title)+'</h1><p>'+esc(M.intro)+'</p><div class="map-hero-actions"><span class="chip brand">从零基础开始</span><span class="chip">18个核心概念</span><span class="chip">5条因果学习路径</span></div></div><div class="map-progress"><strong>'+mastered+'<span>/'+M.nodes.length+'</span></strong><small>已标记理解</small><div class="map-progress-track"><i style="width:'+(mastered/M.nodes.length*100)+'%"></i></div></div></div><div class="section">'+head("🧭 先沿着一条因果链学习","不要一口气记住所有概念。先选择一个你感兴趣的问题，顺着箭头看它如何影响资产。")+'<div class="map-path-grid">'+M.paths.map(p=>'<button class="map-path-card '+(path.id===p.id?'active':'')+'" data-action="map-path" data-path="'+p.id+'"><span class="chip">'+esc(p.tag)+'</span><b>'+esc(p.title)+'</b><small>'+esc(p.summary)+'</small><span class="map-path-cta">沿着这条线探索 →</span></button>').join("")+'</div></div><div class="section">'+head("🔄 因果关系路线","每个节点都可以点击。箭头表示一种可能的传导机制，不代表结果必然发生。")+'<div class="map-route-card card"><div class="row between wrap"><div><span class="chip brand">当前学习路径</span><h2>'+esc(path.title)+'</h2></div><span class="small muted">'+path.nodes.length+'个知识节点</span></div><p class="small muted">'+esc(path.summary)+'</p><div class="route-flow">'+route+'</div><div class="map-takeaway">⭐ '+esc(path.takeaway)+'</div></div></div><div class="section">'+head("🗺️ 完整金融知识地图","按知识层次浏览。搜索任意概念，点击卡片查看生活例子、因果机制和投资分析用法。")+'<div class="map-tools"><label class="map-search-wrap"><span>⌕</span><input id="mapSearch" type="search" placeholder="搜索：实际利率、黄金、GDP……" value="'+esc(mapSearch)+'"><small id="mapSearchCount">共'+M.nodes.length+'个知识点</small></label><div class="map-filters">'+filters.map(x=>'<button class="map-filter '+(mapFilter===x.id?'active':'')+'" data-action="map-filter" data-filter="'+x.id+'">'+esc(x.label)+'</button>').join("")+'</div></div><div class="knowledge-groups">'+groupCards+'</div><p class="map-empty hide" id="mapEmpty">没有找到匹配的知识点，试试其他关键词。</p></div><div class="section">'+head("📖 概念深度学习","先看简单解释，再看生活例子，最后把它放进投资分析框架。")+detail+'</div></section>';
 }
 function mort(rate){let P=1e6,n=360,r=rate/1200,pay=P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);return {pay,interest:pay*n-P}}
 function bond(y){let r=y/100,n=10,c=3;return c*(1-Math.pow(1+r,-n))/r+100*Math.pow(1+r,-n)}
@@ -73,12 +95,12 @@ function footer(){return '<footer class="footer"><b>FinSight · 每天看懂一�
 function render(){
  document.querySelectorAll("[data-page]").forEach(el=>el.classList.toggle("active",el.dataset.page===page));
  $("streak").textContent="🔥 已连续学习"+streak()+"天";
- const routes={home,lesson:lessonPage,lab:labPage,quiz:quizPage,review:reviewPage,progress:progressPage};
+ const routes={home,lesson:lessonPage,map:mapPage,lab:labPage,quiz:quizPage,review:reviewPage,progress:progressPage};
  $("main").innerHTML='<div class="page">'+routes[page]()+'</div>'+footer();
  if(page==="lab")attachLab();
  if(page==="lesson")analystLocked=false;
 }
-function navigate(p,id){if(id)current=id;page=p;render();window.scrollTo({top:0,behavior:"smooth"})}
+function navigate(p,id){if(id){if(p==="map")selectedNode=id;else current=id}page=p;render();window.scrollTo({top:0,behavior:"smooth"})}
 function attachLab(){["mortSlider","bondSlider"].forEach(id=>$(id).addEventListener("input",calc));calc()}
 function calc(){
  let rate=Number($("mortSlider").value),b=Number($("bondSlider").value),m=mort(rate),base=mort(4),v=bond(b);
@@ -105,9 +127,16 @@ document.addEventListener("click",e=>{
  let el=e.target.closest("[data-action],[data-page],[data-term]");
  if(!el)return;
  if(el.dataset.term){pop(el,el.dataset.term);return}
- if(el.dataset.page){close();navigate(el.dataset.page);return}
+ if(el.dataset.page){close();navigate(el.dataset.page,el.dataset.node);return}
  let a=el.dataset.action,id=el.dataset.id;
  if(a==="lesson"){navigate("lesson",id);return}
+ if(a==="lesson-map"){let ids=D.knowledgeMap.lessonLinks[id]||[];if(ids.length)selectedNode=ids[0];navigate("map");return}
+ if(a==="map-path"){selectedPath=el.dataset.path;let p=D.knowledgeMap.paths.find(x=>x.id===selectedPath);if(p?.nodes?.length)selectedNode=p.nodes[0];render();return}
+ if(a==="map-filter"){mapFilter=el.dataset.filter;mapSearch="";render();return}
+ if(a==="map-node"){selectedNode=el.dataset.node;render();$("map-detail")?.scrollIntoView({behavior:"smooth",block:"start"});return}
+ if(a==="map-master"){let nid=el.dataset.node;saved.mapMastery[nid]=!saved.mapMastery[nid];persist();render();$("map-detail")?.scrollIntoView({behavior:"smooth",block:"start"});toast(saved.mapMastery[nid]?"已记录：你理解了这个概念":"已移出已理解列表");return}
+ if(a==="map-check"){let nid=el.dataset.node;saved.mapAnswers[nid]=Number(el.dataset.choice);persist();render();$("map-detail")?.scrollIntoView({behavior:"smooth",block:"start"});return}
+ if(a==="map-reset"){delete saved.mapAnswers[el.dataset.node];persist();render();$("map-detail")?.scrollIntoView({behavior:"smooth",block:"start"});return}
  if(a==="finish"){finish(id);return}
  if(a==="bookmark"){saved.bookmark[id]=!saved.bookmark[id];persist();toast(saved.bookmark[id]?"已收藏":"已取消收藏");render();return}
  if(a==="step"){let i=Number(el.dataset.step);$("lesson-step-"+i)?.scrollIntoView({behavior:"smooth",block:"start"});document.querySelectorAll(".step-chip").forEach((b,j)=>b.classList.toggle("current",i===j));return}
@@ -122,6 +151,7 @@ document.addEventListener("click",e=>{
  if(a==="close"){close();return}
  if(a==="sources"){$("sourceList").classList.toggle("hide");return}
 });
+document.addEventListener("input",e=>{if(e.target.id!=="mapSearch")return;mapSearch=e.target.value.toLowerCase().trim();let visible=0;document.querySelectorAll("[data-map-node]").forEach(el=>{let show=!mapSearch||el.dataset.mapName.includes(mapSearch);el.hidden=!show;if(show)visible++});document.querySelectorAll("[data-map-group]").forEach(g=>{g.hidden=!Array.from(g.querySelectorAll("[data-map-node]")).some(n=>!n.hidden)});$("mapSearchCount").textContent="找到"+visible+"个知识点";$("mapEmpty").classList.toggle("hide",visible>0)});
 document.addEventListener("keydown",e=>{if(e.key==="Escape")close();if((e.key==="Enter"||e.key===" ")&&e.target.classList?.contains("flash")){e.preventDefault();e.target.click()}});
 $("popLayer").addEventListener("click",e=>{if(e.target===$("popLayer"))close()});
 $("homeDate").textContent=D.edition.label;
