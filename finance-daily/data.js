@@ -11,9 +11,9 @@ window.FINSIGHT_DATA = {
     { id:"fx", publisher:"CFETS / FXStreet", title:"2026年10月30日人民币对美元中间价", url:"https://www.fxstreet.com/news/pboc-sets-usd-cny-reference-rate-at-67138-vs-67147-previous-202610300115", kind:"汇率参考" }
   ],
   markets: [
-    { id:"ssec", name:"上证指数", value:"3,614.32", change:"−1.02%", direction:"down", date:"10月30日收盘", unit:"点", points:[3690.48,3697.52,3648.30,3651.43,3614.32], note:"指数代表一篮子股票的整体表现，不代表每一只股票都涨跌相同。", source:"ssec" },
-    { id:"bond", name:"中国10年期国债收益率", value:"1.621%", change:"+0.3bp", direction:"up", date:"10月30日", unit:"年化收益率", points:[1.615,1.606,1.633,1.613,1.621], note:"收益率上升，通常意味着新买家要求的回报更高；旧债价格可能承压。", source:"bond" },
-    { id:"gold", name:"现货黄金 XAU/USD", value:"$3,987.59", change:"−0.84%", direction:"down", date:"10月30日 · 美元/盎司", unit:"美元/盎司", points:[3995.80,4017.07,4060.54,4021.52,3987.59], note:"黄金不支付利息，价格还会受到美元、实际利率和避险需求影响。", source:"gold" },
+    { id:"ssec", name:"上证指数", value:"3,651.43", change:"−0.82%", direction:"down", date:"10月29日收盘", unit:"点", points:[3690.48,3697.52,3648.30,3681.47,3651.43], note:"指数代表一篮子股票的整体表现，不代表每一只股票都涨跌相同。", source:"ssec" },
+    { id:"bond", name:"中国10年期国债收益率", value:"1.613%", change:"−1.1bp", direction:"down", date:"10月29日", unit:"年化收益率", points:[1.615,1.606,1.633,1.624,1.613], note:"收益率上升，通常意味着新买家要求的回报更高；旧债价格可能承压。", source:"bond" },
+    { id:"gold", name:"现货黄金 XAU/USD", value:"$4,021.52", change:"−1.13%", direction:"down", date:"10月29日收盘 · 美元/盎司", unit:"美元/盎司", points:[3995.80,4017.07,4060.54,4067.66,4021.52], note:"黄金不支付利息，价格还会受到美元、实际利率和避险需求影响。", source:"gold" },
     { id:"fx", name:"美元兑人民币中间价", value:"6.7138", change:"−0.0009", direction:"down", date:"10月30日 · 官方中间价", unit:"人民币/美元", points:[6.7180,6.7162,6.7171,6.7147,6.7138], note:"数字下降，表示1美元对应的人民币变少；这不等于银行实际换汇成交价。", source:"fx" }
   ],
   glossary: {
