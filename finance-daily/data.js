@@ -11,10 +11,10 @@ window.FINSIGHT_DATA = {
     { id:"fx", publisher:"新华财经（转引中国外汇交易中心）", title:"2026年10月30日人民币对美元中间价", url:"https://www.cnfin.com/kx/detail/20261030/4488624_1.html", kind:"汇率参考" }
   ],
   markets: [
-    { id:"fed", name:"美国联邦基金利率目标区间", value:"3.75%–4.00%", change:"10月28日维持不变", direction:"flat", date:"美联储 · 10月28日", unit:"目标区间", points:[], note:"美联储以10比2投票维持利率不变；两名委员主张加息25个基点。", source:"fed" },
-    { id:"pce", name:"美国PCE通胀（同比）", value:"3.6%", change:"较上月 +0.2个百分点", direction:"up", date:"2026年9月 · 10月29日发布", unit:"同比", points:[], note:"核心PCE同比为3.1%。通胀数据是观察美联储政策的重要输入。", source:"pce" },
-    { id:"gdp", name:"美国实际GDP（Q3）", value:"3.4%", change:"Q2为2.2%", direction:"up", date:"2026年第三季度初值", unit:"环比折年率", points:[], note:"增长主要由投资、消费和政府支出贡献，出口下降形成部分抵消。", source:"gdp" },
-    { id:"china", name:"中国GDP（前三季度）", value:"4.6%", change:"Q3同比 +4.5%", direction:"flat", date:"2026年前三季度 · 10月19日发布", unit:"同比", points:[], note:"整体增长与行业表现并不相同；制造业、服务业和房地产需要分开观察。", source:"china" }
+    { id:"ssec", name:"上证指数", value:"3,651.43", change:"−0.82%", direction:"down", date:"10月29日收盘", unit:"点", points:[3690.48,3697.52,3648.30,3681.47,3651.43], note:"指数代表一篮子股票的整体表现，不代表每一只股票都涨跌相同。", source:"ssec" },
+    { id:"bond", name:"中国10年期国债收益率", value:"1.613%", change:"−1.1bp", direction:"down", date:"10月29日", unit:"年化收益率", points:[1.615,1.606,1.633,1.624,1.613], note:"收益率下降时，既有固定利息债券的价格通常上涨。bp就是基点，1bp等于0.01个百分点。", source:"bond" },
+    { id:"gold", name:"现货黄金 XAU/USD", value:"$4,021.52", change:"−1.13%", direction:"down", date:"10月29日收盘", unit:"美元/盎司", points:[3995.80,4017.07,4060.54,4067.66,4021.52], note:"黄金不支付利息，价格会受到美元、实际利率和避险需求等因素影响。", source:"gold" },
+    { id:"fx", name:"美元兑人民币中间价", value:"6.7138", change:"−0.0009", direction:"down", date:"10月30日官方中间价", unit:"人民币/美元", points:[6.7180,6.7162,6.7171,6.7147,6.7138], note:"1美元约等于6.7138元人民币。数字下降代表美元相对人民币变弱，这不是银行实际兑换价格。", source:"fx" }
   ],
   glossary: {
     "美联储": { simple:"美国的中央银行体系。它会通过货币政策影响美国金融环境。", life:"可以把它想成经济中的“总水龙头调节员”，但它不是普通商业银行。", why:"它的政策利率会影响借钱成本、储蓄回报和市场预期。", group:"央行与利率" },
