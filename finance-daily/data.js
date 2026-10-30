@@ -10,6 +10,12 @@ window.FINSIGHT_DATA = {
     { id:"gold", publisher:"Investing.com", title:"现货黄金 XAU/USD 历史行情", url:"https://ca.investing.com/currencies/xau-usd-historical-data", kind:"市场行情" },
     { id:"fx", publisher:"新华财经（转引中国外汇交易中心）", title:"2026年10月30日人民币对美元中间价", url:"https://www.cnfin.com/kx/detail/20261030/4488624_1.html", kind:"汇率参考" }
   ],
+  marketSnapshot: [
+    { id:"ssec", name:"上证指数", value:"3,651.43", change:"−0.82%", direction:"down", date:"10月29日收盘", unit:"点", points:[3690.48,3697.52,3648.30,3681.47,3651.43], note:"指数代表一篮子股票的整体表现，不代表每一只股票都涨跌相同。", source:"ssec" },
+    { id:"bond", name:"中国10年期国债收益率", value:"1.613%", change:"−1.1bp", direction:"down", date:"10月29日收盘数据", unit:"年化收益率", points:[1.615,1.606,1.633,1.624,1.613], note:"收益率下降时，既有固定利息债券价格通常上涨。1bp等于0.01个百分点。", source:"bond" },
+    { id:"gold", name:"现货黄金 XAU/USD", value:"$4,021.52", change:"−1.13%", direction:"down", date:"10月29日历史行情", unit:"美元/盎司", points:[3995.80,4017.07,4060.54,4067.66,4021.52], note:"黄金不支付利息，还受美元、实际利率与避险需求等因素影响。", source:"gold" },
+    { id:"fx", name:"美元兑人民币中间价", value:"6.7138", change:"−0.0009", direction:"down", date:"10月30日官方中间价", unit:"人民币/美元", points:[6.7147,6.7138], note:"数字下降表示一美元对应人民币减少。这是官方参考汇率，不是实时换汇成交价。", source:"fx" }
+  ],
   markets: [
     { id:"fed", name:"美国联邦基金利率目标区间", value:"3.75%–4.00%", change:"10月28日维持不变", direction:"flat", date:"美联储 · 10月28日", unit:"目标区间", points:[], note:"美联储以10比2投票维持利率不变；两名委员主张加息25个基点。", source:"fed" },
     { id:"pce", name:"美国PCE通胀（同比）", value:"3.6%", change:"较上月 +0.2个百分点", direction:"up", date:"2026年9月 · 10月29日发布", unit:"同比", points:[], note:"核心PCE同比为3.1%。通胀数据是观察美联储政策的重要输入。", source:"pce" },
