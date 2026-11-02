@@ -443,3 +443,151 @@ button, input, select, textarea { font-family: inherit; }
   .map-explain.life, .map-explain.mechanism,
   .map-explain.investor, .map-explain.advanced { padding: 16px; }
 }
+
+
+/* FinSight v1.4 — vertical, readable cause-and-effect routes */
+.route-flow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: stretch;
+  gap: 0;
+  max-width: 900px;
+  margin: 14px auto 0;
+  padding: 8px 0;
+  overflow: visible;
+  scroll-snap-type: none;
+}
+.route-step { width: 100%; min-width: 0; flex: none; scroll-snap-align: none; }
+.route-node {
+  display: grid;
+  grid-template-columns: 66px minmax(0, 1fr);
+  grid-template-rows: auto auto auto;
+  align-items: start;
+  gap: 6px 15px;
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  padding: 18px 20px;
+  text-align: left;
+  border: 1px solid #E9E1D6;
+  border-radius: 15px;
+  background: #fff;
+}
+.route-node.selected, .route-node:hover {
+  border-color: var(--brand);
+  background: #FFF9F4;
+  box-shadow: 0 4px 16px rgba(232,99,44,.08);
+}
+.route-index {
+  grid-column: 1;
+  grid-row: 1 / 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  min-height: 48px;
+  padding: 8px 5px;
+  border-radius: 10px;
+  background: #FFF0E5;
+  color: var(--brand);
+  font-size: 12px;
+  line-height: 1.5;
+  font-weight: 850;
+  text-align: center;
+}
+.route-node b { grid-column: 2; font-size: 18px; line-height: 1.5; }
+.route-node small {
+  grid-column: 2;
+  display: block;
+  overflow: visible;
+  white-space: normal;
+  color: var(--ink-2);
+  font-size: 15px;
+  line-height: 1.8;
+}
+.route-open {
+  grid-column: 2;
+  margin-top: 3px;
+  color: var(--brand);
+  font-size: 12px;
+  line-height: 1.5;
+  font-weight: 750;
+}
+.route-edge {
+  display: grid;
+  grid-template-columns: 66px minmax(0, 1fr);
+  align-items: center;
+  flex: none;
+  gap: 3px 15px;
+  padding: 7px 0 7px 20px;
+  margin: 0;
+  color: var(--brand);
+  font-size: 14px;
+}
+.route-edge span {
+  grid-column: 1;
+  grid-row: 1 / 3;
+  font-size: 28px;
+  line-height: 1;
+  font-weight: 900;
+  text-align: center;
+}
+.route-edge b {
+  grid-column: 2;
+  color: var(--brand);
+  font-size: 15px;
+  line-height: 1.55;
+}
+.route-edge small {
+  grid-column: 2;
+  color: var(--ink-2);
+  font-size: 14px;
+  line-height: 1.7;
+}
+.map-explain { padding: 19px; }
+.map-explain h3 { font-size: 17px; line-height: 1.5; margin: 8px 0; }
+.map-explain p { font-size: 16px; line-height: 1.85; }
+.map-eyebrow { font-size: 12px; line-height: 1.6; letter-spacing: 0; }
+.map-detail-grid { gap: 13px; }
+.map-explain.advanced {
+  border: 1px dashed #B9A9D8;
+  cursor: pointer;
+}
+.map-explain.advanced summary {
+  list-style: none;
+  cursor: pointer;
+}
+.map-explain.advanced summary::-webkit-details-marker { display: none; }
+.map-explain.advanced summary h3 { margin-bottom: 0; }
+.map-explain.advanced[open] summary { margin-bottom: 10px; }
+.map-explain.advanced p { margin-top: 8px; }
+.map-takeaway { font-size: 16px; line-height: 1.85; padding: 16px 18px; }
+.archive-section { margin-top: 8px; }
+.archive-news { background: #FFFEFC; }
+.archive-news .news-num { font-size: 23px; color: #C6B7A7; }
+@media (max-width: 760px) {
+  .route-flow { max-width: none; margin-top: 10px; }
+  .route-node {
+    grid-template-columns: 48px minmax(0, 1fr);
+    gap: 6px 12px;
+    padding: 16px 14px;
+  }
+  .route-index { font-size: 11px; padding: 6px 3px; }
+  .route-node b { font-size: 17px; }
+  .route-node small { font-size: 15px; line-height: 1.8; }
+  .route-edge {
+    grid-template-columns: 48px minmax(0, 1fr);
+    gap: 3px 12px;
+    padding: 6px 0 6px 10px;
+  }
+  .route-edge b { font-size: 14px; }
+  .route-edge small { font-size: 13.5px; line-height: 1.75; }
+  .map-detail-grid { grid-template-columns: minmax(0, 1fr); }
+  .map-explain { padding: 17px; }
+  .map-explain h3 { font-size: 17px; }
+  .map-explain p { font-size: 16px; line-height: 1.85; }
+  .map-eyebrow { font-size: 12px; }
+  .map-takeaway { font-size: 15.5px; }
+  .archive-news { grid-template-columns: 30px minmax(0,1fr) 34px; gap: 10px; padding: 15px; }
+  .archive-news .news-num { font-size: 19px; }
+}
