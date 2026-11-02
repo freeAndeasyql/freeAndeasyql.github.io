@@ -22,7 +22,7 @@ const rich=x=>String(x??"").split(pattern).map(s=>D.glossary[s]?'<button class="
 const box=(txt,cls="")=>'<div class="card '+cls+'">'+txt+'</div>';
 const head=(h,s="")=>'<div class="section-head"><h2 class="section-title">'+h+'</h2><p class="section-sub">'+s+'</p></div>';
 const money=x=>"¥"+Math.round(x).toLocaleString("zh-CN");
-let page="home",current="fed",quizIndex=0,answers=[],locked=false,filter="due",analystLocked=false,toastTimer,selectedNode="policy-rate",selectedPath="fed-gold",mapFilter="all",mapSearch="";
+let page="home",current="fed",quizIndex=0,answers=[],locked=false,filter="due",analystLocked=false,toastTimer,selectedNode="gdp",selectedPath="growth-stocks",mapFilter="all",mapSearch="";
 const completed=()=>D.lessons.slice(0,3).filter(l=>saved.completed[l.id]).length;
 const dailyQuiz=()=>D.quiz.slice(0,3);
 function streak(){let ds=new Set(Object.values(saved.completed));let d=ds.has(today)?today:add(today,-1),n=0;while(ds.has(d)&&n<1000){n++;d=add(d,-1)}return n}
