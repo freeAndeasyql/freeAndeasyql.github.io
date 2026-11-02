@@ -1,10 +1,10 @@
 window.FINSIGHT_DATA = {
   edition: { date: "2026-11-02", label: "2026年11月2日 · 第002期", theme: "中国资金面、制造业景气与AI投资回报", readingTime: "约15分钟" },
   sources: [
-    { id:"fed", archive:true, publisher:"Federal Reserve", title:"FOMC声明 · 2026年10月28日", url:"https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm", kind:"官方政策" },
-    { id:"pce", archive:true, publisher:"U.S. Bureau of Economic Analysis", title:"2026年9月个人收入与支出报告", url:"https://www.bea.gov/news/2026/personal-income-and-outlays-september-2026", kind:"官方数据" },
-    { id:"gdp", archive:true, publisher:"U.S. Bureau of Economic Analysis", title:"2026年第三季度GDP初值", url:"https://www.bea.gov/news/2026/gdp-advance-estimate-3rd-quarter-2026", kind:"官方数据" },
-    { id:"china", archive:true, publisher:"国家统计局", title:"2026年前三季度国民经济运行情况", url:"https://www.stats.gov.cn/sj/zxfbhjd/202610/t20261019_1965618.html", kind:"官方数据" },
+    { id:"fed", publisher:"Federal Reserve", title:"FOMC声明 · 2026年10月28日", url:"https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm", kind:"官方政策" },
+    { id:"pce", publisher:"U.S. Bureau of Economic Analysis", title:"2026年9月个人收入与支出报告", url:"https://www.bea.gov/news/2026/personal-income-and-outlays-september-2026", kind:"官方数据" },
+    { id:"gdp", publisher:"U.S. Bureau of Economic Analysis", title:"2026年第三季度GDP初值", url:"https://www.bea.gov/news/2026/gdp-advance-estimate-3rd-quarter-2026", kind:"官方数据" },
+    { id:"china", publisher:"国家统计局", title:"2026年前三季度国民经济运行情况", url:"https://www.stats.gov.cn/sj/zxfbhjd/202610/t20261019_1965618.html", kind:"官方数据" },
     { id:"ssec", publisher:"Investing.com", title:"上证指数历史行情", url:"https://www.investing.com/indices/shanghai-composite-historical-data", kind:"市场行情" },
     { id:"bond", publisher:"Investing.com", title:"中国10年期国债收益率历史行情", url:"https://cn.investing.com/rates-bonds/china-10-year-bond-yield-historical-data", kind:"市场行情" },
     { id:"gold", publisher:"Investing.com", title:"现货黄金 XAU/USD 历史行情", url:"https://ca.investing.com/currencies/xau-usd-historical-data", kind:"市场行情" },
@@ -1177,7 +1177,7 @@ window.FINSIGHT_DATA = {
 },
 
     {
-      id:"fed", number:"01", icon:"🏦", level:"入门", category:"央行与利率", minutes:5,
+      id:"fed", archive:true, number:"01", icon:"🏦", level:"入门", category:"央行与利率", minutes:5,
       title:"美联储暂时没加息，为什么大家仍然关注？",
       summary:"一句话看懂：美联储这次没有提高利率，但有两位委员希望加息。市场关心的是：以后借钱会不会更贵？",
       fact:"2026年10月28日，美联储把联邦基金利率目标区间维持在3.75%～4.00%。投票结果为10比2；两位委员主张本次上调0.25个百分点。美联储声明同时称经济活动正在强劲扩张、通胀仍处于偏高水平。",
@@ -1207,7 +1207,7 @@ window.FINSIGHT_DATA = {
       analyst:{question:"如果未来市场更相信美联储会加息，你觉得哪件事更可能先发生？",options:["所有银行立刻把每个人的房贷利率提高","市场先调整对未来利率的预期","黄金必然马上下跌"],correct:1,explain:"先变化的往往是市场预期和金融资产价格。银行贷款利率不会全部、立刻、同幅度调整；黄金也不会只受利率一个因素影响。"}
     },
     {
-      id:"pce", number:"02", icon:"🛒", level:"入门", category:"通货膨胀", minutes:4,
+      id:"pce", archive:true, number:"02", icon:"🛒", level:"入门", category:"通货膨胀", minutes:4,
       title:"美国物价涨得更快，为什么美联储会在意？",
       summary:"一句话看懂：美国9月PCE同比上涨3.6%。物价上涨太快，央行通常会更谨慎地降息。",
       fact:"美国经济分析局（BEA）于10月29日公布：2026年9月PCE价格指数环比上涨0.5%、同比上涨3.6%；剔除食品和能源后的核心PCE环比上涨0.3%、同比上涨3.1%。",
@@ -1235,7 +1235,7 @@ window.FINSIGHT_DATA = {
       analyst:{question:"如果油价突然大涨，但其他商品价格没怎么变，你会优先观察哪个指标？",options:["只看总体PCE","同时看总体PCE和核心PCE","只看股市指数"],correct:1,explain:"总体PCE会受到能源价格影响；核心PCE剔除食品和能源，有助于观察其他价格变化。两个指标都重要，不能只看一个。"}
     },
     {
-      id:"gdp", number:"03", icon:"🏪", level:"入门", category:"经济增长", minutes:4,
+      id:"gdp", archive:true, number:"03", icon:"🏪", level:"入门", category:"经济增长", minutes:4,
       title:"美国GDP增长3.4%，为什么股市不一定上涨？",
       summary:"一句话看懂：美国第三季度经济增长较快，但经济整体变好，不代表每家公司利润都增加，更不代表股票一定涨。",
       fact:"BEA于10月29日公布的2026年第三季度实际GDP初值显示：按环比折年率计算增长3.4%，第二季度为2.2%。投资、消费和政府支出是增长的重要贡献因素，出口下降形成部分抵消。",
@@ -1262,7 +1262,7 @@ window.FINSIGHT_DATA = {
       analyst:{question:"如果经济增长很好，但市场已经提前预期更高增长，股票还会不会上涨？",options:["一定会上涨","不一定，因为好消息可能已被价格反映","一定会下跌"],correct:1,explain:"资产价格反映预期。实际结果如果没有超过市场预期，价格可能反应平淡，甚至回落。"}
     },
     {
-      id:"china", number:"04", icon:"🇨🇳", level:"入门", category:"中国经济", minutes:4,
+      id:"china", archive:true, number:"04", icon:"🇨🇳", level:"入门", category:"中国经济", minutes:4,
       title:"中国前三季度GDP增长4.6%，为什么还要看行业？",
       summary:"一句话看懂：中国经济整体在增长，但不同行业、不同企业的感受可能并不一样。",
       fact:"国家统计局公布：2026年前三季度中国GDP同比增长4.6%；第三季度同比增长4.5%，第二季度为4.3%。",
