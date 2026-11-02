@@ -368,3 +368,78 @@ button, input, select, textarea { font-family: inherit; }
   color: #BA3636;
   background: rgba(214,69,69,.10);
 }
+
+
+/* FinSight semantic learning palette v1.3 */
+.term {
+  color: #3568A8;
+  border-bottom-color: #6D91C5;
+  border-bottom-style: dashed;
+  border-bottom-width: 1.5px;
+  border-radius: 2px;
+  transition: background .16s ease, color .16s ease;
+}
+.term:hover, .term:focus-visible {
+  color: #244F88;
+  background: #E8F0FB;
+  outline: none;
+}
+.defbox { background: #E8F0FB; border-left-color: #3D6FB6; }
+.defbox > b { color: #315F9D; }
+.lifebox {
+  background: #FFF8E8;
+  border-left: 4px solid #C9942B;
+}
+.lifebox > b { color: #8B681F; }
+.lesson-conclusion {
+  margin: 14px 0 2px !important;
+  padding: 12px 14px;
+  border-left: 4px solid #E8632C;
+  border-radius: 0 10px 10px 0;
+  background: #FFF0E5;
+  color: #8D4828;
+  font-weight: 750;
+  line-height: 1.8;
+}
+.keybox {
+  background: linear-gradient(115deg, #FFF3E6, #FDE9DD);
+  border: 1px solid #F0C4A9;
+  border-left: 4px solid #E8632C;
+}
+.keybox p { color: #75452F; }
+.map-explain.life {
+  background: #FFF8E8;
+  border-left: 4px solid #C9942B;
+}
+.map-explain.mechanism {
+  background: #E8F0FB;
+  border-left: 4px solid #3D6FB6;
+}
+.map-explain.investor {
+  background: #EDF5EF;
+  border-left: 4px solid #3E8E5A;
+}
+.map-explain.advanced {
+  background: #F2EFFB;
+  border-left: 4px solid #8A75B8;
+}
+.map-explain.life .map-eyebrow { color: #98701F; }
+.map-explain.mechanism .map-eyebrow { color: #315F9D; }
+.map-explain.investor .map-eyebrow { color: #34764B; }
+.map-explain.advanced .map-eyebrow { color: #725D9D; }
+.map-takeaway {
+  padding: 15px 17px;
+  border-left: 4px solid #E8632C;
+  background: #FFF0E5;
+  color: #8D4828;
+  font-size: 15px;
+  line-height: 1.8;
+  font-weight: 700;
+}
+.map-takeaway .term { color: #3568A8; }
+@media (max-width: 760px) {
+  .lesson-conclusion { font-size: 16px; padding: 12px; }
+  .map-takeaway { font-size: 15px; }
+  .map-explain.life, .map-explain.mechanism,
+  .map-explain.investor, .map-explain.advanced { padding: 16px; }
+}
