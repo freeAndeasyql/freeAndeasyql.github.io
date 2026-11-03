@@ -96,8 +96,8 @@ $('#searchInput').addEventListener('input',e=>{state.query=e.target.value;render
 const savedTheme=store.get('theme',null);document.documentElement.dataset.theme=savedTheme||((window.matchMedia?.('(prefers-color-scheme: dark)').matches)?'dark':'light');document.documentElement.dataset.size=String(store.get('scale',0));renderList();
 // A deployed edition can be replaced with daily.json without altering the HTML.
 const requestedEdition=new URLSearchParams(location.search).get('edition');
-const editionPath=requestedEdition&&/^\\d{4}-\\d{2}-\\d{2}$/.test(requestedEdition)?'./editions/'+requestedEdition+'.json':'./daily.json';
-if(location.protocol!=='file:')fetch(editionPath+'?v='+encodeURIComponent(edition.edition),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('No edition');return r.json()}).then(d=>{if(d&&/^\\d{4}-\\d{2}-\\d{2}$/.test(d.edition)&&Array.isArray(d.items)&&d.items.length>0){edition=d;window.__EMBEDDED_EDITION__=d;renderList();window.dispatchEvent(new Event('aitech:edition-loaded'))}}).catch(()=>{});
+const editionPath=requestedEdition&&/^\d{4}-\d{2}-\d{2}$/.test(requestedEdition)?'./editions/'+requestedEdition+'.json':'./daily.json';
+if(location.protocol!=='file:')fetch(editionPath+'?v='+encodeURIComponent(edition.edition),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('No edition');return r.json()}).then(d=>{if(d&&/^\d{4}-\d{2}-\d{2}$/.test(d.edition)&&Array.isArray(d.items)&&d.items.length>0){edition=d;window.__EMBEDDED_EDITION__=d;renderList();window.dispatchEvent(new Event('aitech:edition-loaded'))}}).catch(()=>{});
 })();
 </script>
 <script id="enhancements">(function(){
