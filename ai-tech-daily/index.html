@@ -138,7 +138,7 @@ function addDetailButtons(){
  document.querySelectorAll('.news-card').forEach(card=>{
   if(card.querySelector('.detail-btn'))return;
   const id=card.id.replace(/^news-/,'');
-  const b=document.createElement('button');b.type='button';b.className='detail-btn';b.dataset-detail=id;b.textContent='深度解读 ↗';
+  const b=document.createElement('button');b.type='button';b.className='detail-btn';b.dataset.detail=id;b.textContent='深度解读 ↗';
   const footer=card.querySelector('.card-footer');if(footer)footer.insertBefore(b,footer.firstChild);
   const title=card.querySelector('.card-title');if(title)title.dataset.detail=id;
  });
